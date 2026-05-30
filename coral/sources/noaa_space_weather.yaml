@@ -1,0 +1,122 @@
+name: noaa_space_weather
+version: 0.1.0
+dsl_version: 3
+backend: file
+test_queries:
+  - SELECT time_tag, kp FROM noaa_space_weather.kp_observed ORDER BY time_tag DESC LIMIT 1
+  - SELECT date_stamp, geomagnetic_storm_scale FROM noaa_space_weather.noaa_scales LIMIT 1
+tables:
+  - name: kp_observed
+    description: Observed NOAA planetary K-index values from SWPC.
+    format: jsonl
+    source:
+      location: file:coral/data/noaa_space_weather/
+      glob: "kp_observed.jsonl"
+    columns:
+      - name: time_tag
+        type: Utf8
+        nullable: false
+        description: Observation timestamp.
+      - name: kp
+        type: Float64
+        description: Planetary K-index.
+      - name: a_running
+        type: Float64
+        description: Running A-index value.
+      - name: station_count
+        type: Float64
+        description: Number of contributing stations.
+      - name: fetched_at
+        type: Utf8
+        nullable: false
+        description: Snapshot fetch timestamp.
+  - name: kp_forecast
+    description: NOAA planetary K-index observed and forecast values from SWPC.
+    format: jsonl
+    source:
+      location: file:coral/data/noaa_space_weather/
+      glob: "kp_forecast.jsonl"
+    columns:
+      - name: time_tag
+        type: Utf8
+        nullable: false
+        description: Forecast timestamp.
+      - name: kp
+        type: Float64
+        description: Planetary K-index value.
+      - name: observed_status
+        type: Utf8
+        description: NOAA observed/estimated/forecast label.
+      - name: noaa_scale
+        type: Utf8
+        description: NOAA geomagnetic scale label when provided.
+      - name: fetched_at
+        type: Utf8
+        nullable: false
+        description: Snapshot fetch timestamp.
+  - name: noaa_scales
+    description: Current and forecast NOAA space weather scales.
+    format: jsonl
+    source:
+      location: file:coral/data/noaa_space_weather/
+      glob: "noaa_scales.jsonl"
+    columns:
+      - name: period_key
+        type: Utf8
+        nullable: false
+        description: NOAA product period key.
+      - name: date_stamp
+        type: Utf8
+        nullable: false
+        description: Forecast date.
+      - name: time_stamp
+        type: Utf8
+        nullable: false
+        description: Forecast time.
+      - name: radio_blackout_scale
+        type: Float64
+      - name: radio_blackout_text
+        type: Utf8
+      - name: radio_blackout_minor_probability
+        type: Float64
+      - name: radio_blackout_major_probability
+        type: Float64
+      - name: solar_radiation_scale
+        type: Float64
+      - name: solar_radiation_text
+        type: Utf8
+      - name: solar_radiation_probability
+        type: Float64
+      - name: geomagnetic_storm_scale
+        type: Float64
+      - name: geomagnetic_storm_text
+        type: Utf8
+      - name: fetched_at
+        type: Utf8
+        nullable: false
+        description: Snapshot fetch timestamp.
+  - name: alerts
+    description: NOAA SWPC watches, warnings, alerts, and summaries.
+    format: jsonl
+    source:
+      location: file:coral/data/noaa_space_weather/
+      glob: "alerts.jsonl"
+    columns:
+      - name: product_id
+        type: Utf8
+        nullable: false
+      - name: issue_datetime
+        type: Utf8
+        nullable: false
+      - name: message_code
+        type: Utf8
+      - name: noaa_scale
+        type: Utf8
+      - name: noaa_scale_text
+        type: Utf8
+      - name: message
+        type: Utf8
+        nullable: false
+      - name: fetched_at
+        type: Utf8
+        nullable: false

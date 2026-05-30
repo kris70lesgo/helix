@@ -1,0 +1,67 @@
+name: launch_library
+version: 0.1.0
+dsl_version: 3
+backend: file
+test_queries:
+  - SELECT launch_id, name, net FROM launch_library.upcoming_launches ORDER BY net LIMIT 1
+  - SELECT launch_service_provider, COUNT(*) AS launches FROM launch_library.upcoming_launches GROUP BY launch_service_provider LIMIT 5
+tables:
+  - name: upcoming_launches
+    description: Upcoming launches from The Space Devs Launch Library 2 API.
+    format: jsonl
+    source:
+      location: file:coral/data/launch_library/
+      glob: "upcoming_launches.jsonl"
+    columns:
+      - name: launch_id
+        type: Utf8
+        nullable: false
+      - name: name
+        type: Utf8
+        nullable: false
+      - name: slug
+        type: Utf8
+      - name: status_name
+        type: Utf8
+      - name: status_abbrev
+        type: Utf8
+      - name: net
+        type: Utf8
+        description: No-earlier-than launch timestamp.
+      - name: window_start
+        type: Utf8
+      - name: window_end
+        type: Utf8
+      - name: last_updated
+        type: Utf8
+      - name: probability
+        type: Float64
+      - name: weather_concerns
+        type: Utf8
+      - name: launch_service_provider
+        type: Utf8
+      - name: provider_type
+        type: Utf8
+      - name: rocket_name
+        type: Utf8
+      - name: rocket_family
+        type: Utf8
+      - name: mission_name
+        type: Utf8
+      - name: mission_type
+        type: Utf8
+      - name: mission_description
+        type: Utf8
+      - name: orbit_name
+        type: Utf8
+      - name: orbit_abbrev
+        type: Utf8
+      - name: pad_name
+        type: Utf8
+      - name: pad_location_name
+        type: Utf8
+      - name: pad_country_code
+        type: Utf8
+      - name: fetched_at
+        type: Utf8
+        nullable: false

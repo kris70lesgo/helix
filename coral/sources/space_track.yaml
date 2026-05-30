@@ -1,0 +1,98 @@
+name: space_track
+version: 0.1.0
+dsl_version: 3
+backend: file
+test_queries:
+  - SELECT norad_cat_id, object_name, epoch FROM space_track.gp_current LIMIT 1
+  - SELECT norad_cat_id, object_name, launch FROM space_track.satcat_recent LIMIT 1
+tables:
+  - name: gp_current
+    description: Bounded current GP records from Space-Track.
+    format: jsonl
+    source:
+      location: file:coral/data/space_track/
+      glob: "gp_current.jsonl"
+    columns:
+      - name: norad_cat_id
+        type: Utf8
+        nullable: false
+      - name: object_name
+        type: Utf8
+      - name: object_id
+        type: Utf8
+      - name: object_type
+        type: Utf8
+      - name: country_code
+        type: Utf8
+      - name: epoch
+        type: Utf8
+      - name: creation_date
+        type: Utf8
+      - name: launch_date
+        type: Utf8
+      - name: decay_date
+        type: Utf8
+      - name: inclination
+        type: Float64
+      - name: eccentricity
+        type: Float64
+      - name: mean_motion
+        type: Float64
+      - name: period
+        type: Float64
+      - name: semimajor_axis
+        type: Float64
+      - name: apoapsis
+        type: Float64
+      - name: periapsis
+        type: Float64
+      - name: tle_line0
+        type: Utf8
+      - name: tle_line1
+        type: Utf8
+      - name: tle_line2
+        type: Utf8
+      - name: fetched_at
+        type: Utf8
+        nullable: false
+  - name: satcat_recent
+    description: Bounded recent SATCAT records from Space-Track.
+    format: jsonl
+    source:
+      location: file:coral/data/space_track/
+      glob: "satcat_recent.jsonl"
+    columns:
+      - name: norad_cat_id
+        type: Utf8
+        nullable: false
+      - name: object_number
+        type: Utf8
+      - name: object_name
+        type: Utf8
+      - name: object_id
+        type: Utf8
+      - name: object_type
+        type: Utf8
+      - name: country
+        type: Utf8
+      - name: launch
+        type: Utf8
+      - name: site
+        type: Utf8
+      - name: decay
+        type: Utf8
+      - name: period
+        type: Float64
+      - name: inclination
+        type: Float64
+      - name: apogee
+        type: Float64
+      - name: perigee
+        type: Float64
+      - name: current
+        type: Utf8
+      - name: rcs_size
+        type: Utf8
+      - name: fetched_at
+        type: Utf8
+        nullable: false
