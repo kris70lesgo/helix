@@ -1,212 +1,207 @@
-# ARGUS
+# HELIX
 
-### AI-Powered Space Operations Intelligence Platform
+### Coral-Powered Space Operations Intelligence Platform
 
-ARGUS is an AI-native Space Operations Intelligence Platform that transforms fragmented orbital, launch, and space weather data into actionable operational intelligence.
+HELIX is an AI-powered Space Operations Intelligence Platform that transforms fragmented orbital, launch, and space weather data into actionable mission intelligence.
 
-Built on top of Coral's federated SQL query engine, ARGUS enables mission operators, researchers, and analysts to investigate conjunction risks, correlate launch activity, monitor orbital congestion, and generate explainable operational assessments through a unified intelligence workflow.
+Built on top of Coral's federated SQL runtime, HELIX enables operators, researchers, and analysts to investigate conjunction risks, correlate launch activity, monitor orbital congestion, and generate explainable operational assessments through multi-step AI investigations.
+
+Unlike traditional satellite trackers, HELIX focuses on answering:
+
+> What is happening in orbit?
+>
+> Why is it happening?
+>
+> What should operators pay attention to next?
 
 ---
 
-## Overview
+## Why HELIX?
 
 Earth's orbit is becoming increasingly congested.
 
-With thousands of active satellites, frequent launches, and growing orbital debris, operators need more than visualization—they need intelligence.
+Thousands of active satellites, frequent launches, and growing debris populations create a complex operational environment where understanding risk requires data from multiple disconnected systems.
 
-ARGUS combines:
+Most tools can visualize orbital activity.
 
-* Real-time satellite tracking
-* Conjunction detection
-* Orbital risk analysis
-* Launch intelligence
-* Space weather monitoring
-* Multi-source operational investigations
-* AI-assisted mission assessments
+HELIX investigates it.
 
-into a single operational platform.
+Using Coral as a unified intelligence layer, HELIX correlates:
 
-Unlike traditional satellite trackers, ARGUS acts as an operational investigation system capable of correlating information across multiple aerospace data sources and producing explainable assessments.
-
----
-
-## Why ARGUS?
-
-Most space monitoring tools answer:
-
-> "What is happening?"
-
-ARGUS answers:
-
-> "Why is it happening?"
-
-and
-
-> "What should operators pay attention to next?"
-
-Using Coral as the intelligence layer, ARGUS performs cross-source investigations that connect:
-
-* Conjunction events
-* Launch activity
-* Satellite metadata
-* Orbital congestion
+* Satellite conjunction events
+* Launch schedules and mission activity
 * Space weather conditions
+* Satellite metadata
+* Historical orbital trends
 
-into a unified operational picture.
+to produce operational assessments that help explain elevated risk conditions and emerging orbital threats.
 
 ---
 
 ## Key Features
 
-### Real-Time Orbital Monitoring
+### AI Operations Investigation Engine
 
-Track and visualize thousands of objects orbiting Earth in real time.
+HELIX includes a deterministic multi-step investigation engine.
 
-* Active satellites
-* Orbital debris
-* Constellations
-* Dynamic orbit propagation
-
----
-
-### Conjunction Detection Engine
-
-Identify close approaches between orbital objects using efficient spatial analysis.
-
-Metrics include:
-
-* Miss distance
-* Relative velocity
-* Time of Closest Approach (TCA)
-* Risk classification
-
-Risk levels:
-
-* LOW
-* MEDIUM
-* HIGH
-* CRITICAL
-
----
-
-### AI Operations Agent
-
-ARGUS includes a deterministic multi-step investigation engine.
-
-Instead of generating a single summary, the system:
+Instead of generating a simple summary, the system:
 
 1. Detects operational anomalies
-2. Builds investigation plans
+2. Builds an investigation strategy
 3. Executes approved Coral queries
-4. Correlates findings
+4. Correlates evidence across sources
 5. Generates operational assessments
 6. Produces recommendations
+
+Every investigation is transparent, explainable, and traceable.
 
 ---
 
 ### Coral-Powered Intelligence Layer
 
-ARGUS uses Coral as its federated operational query engine.
+HELIX uses Coral as its federated operational query engine.
 
 Connected sources include:
 
-* AEGIS Core Orbital Data
+* HELIX Orbital Intelligence Database
 * NOAA Space Weather
 * Launch Library
 * Space-Track
 
-All sources become queryable through a unified SQL interface.
+Coral enables:
+
+* Query Anything as SQL
+* Cross-Source Joins
+* Federated Query Execution
+* Source Discovery
+* Local-First Intelligence Workflows
 
 ---
 
-### Cross-Source Investigations
+### Multi-Step Operational Investigations
 
-Example investigation:
+HELIX investigates questions such as:
 
-> Why are conjunction risks elevated today?
+* Why are conjunction risks elevated today?
+* Which satellites repeatedly appear in high-risk events?
+* Are upcoming launches contributing to orbital congestion?
+* Is space weather affecting operational risk?
+* Which orbital regions are becoming increasingly congested?
 
-ARGUS automatically:
-
-* Analyzes conjunction density
-* Identifies repeated satellite involvement
-* Correlates recent launch activity
-* Evaluates geomagnetic conditions
-* Produces an operational assessment
+Investigations execute through a structured reasoning workflow rather than a single query-and-summary approach.
 
 ---
 
-### Investigation Timeline
+### Interactive Mission Control Interface
 
-Every investigation includes:
+HELIX combines:
 
-* Live progress tracking
-* Query execution trace
-* Source visibility
-* Confidence scoring
-* Recommendation generation
+* Real-time orbital visualization
+* Conjunction monitoring
+* Operational alerts
+* AI investigations
+* Coral query tracing
+* Mission intelligence summaries
 
-This provides a transparent and explainable operational workflow.
+into a unified mission-control experience.
 
 ---
 
-### Passive Operational Alerts
+### Passive Operational Monitoring
 
-ARGUS continuously surfaces:
+HELIX continuously surfaces:
 
+* High-risk conjunctions
 * Elevated conjunction density
-* High-risk conjunction events
 * Launch pressure indicators
-* Space weather anomalies
+* Space weather conditions
+* Operational anomalies
 
-Operators can immediately launch investigations from detected alerts.
+Operators can immediately launch AI investigations directly from surfaced alerts.
 
 ---
 
 ## Architecture
 
 ```text
-                    ┌────────────────────┐
-                    │    Space-Track     │
-                    └─────────┬──────────┘
-                              │
-
-                    ┌────────────────────┐
-                    │ NOAA Space Weather │
-                    └─────────┬──────────┘
-                              │
-
-                    ┌────────────────────┐
-                    │   Launch Library   │
-                    └─────────┬──────────┘
-                              │
-
-                    ┌────────────────────┐
-                    │   AEGIS Core DB    │
-                    └─────────┬──────────┘
-                              │
-
-                ┌──────────────────────────┐
-                │       Coral Engine       │
-                │ Federated SQL Runtime    │
-                └────────────┬─────────────┘
-                             │
-
-                ┌──────────────────────────┐
-                │ Investigation Engine     │
-                │ Query Planner            │
-                │ Assessment Generator     │
-                └────────────┬─────────────┘
-                             │
-
-                ┌──────────────────────────┐
-                │ ARGUS Intel Console      │
-                │ Interactive 3D Globe     │
-                └──────────────────────────┘
+Space-Track
+      │
+      ▼
+NOAA Space Weather
+      │
+      ▼
+Launch Library
+      │
+      ▼
+HELIX Orbital Database
+      │
+      ▼
+┌─────────────────────────────┐
+│           Coral             │
+│ Federated SQL Query Engine  │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Multi-Step Investigation    │
+│ Engine                      │
+│                             │
+│ • Query Planning            │
+│ • Correlation               │
+│ • Assessment Generation     │
+│ • Recommendations           │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ HELIX Mission Control       │
+│ Intelligence Console        │
+│ 3D Operational Globe        │
+└─────────────────────────────┘
 ```
 
 ---
 
-## Technology Stack
+## Example Investigation
+
+User asks:
+
+```text
+Why are conjunction risks elevated today?
+```
+
+HELIX performs:
+
+```text
+[1] Querying conjunction database
+[2] Detecting orbital clustering
+[3] Identifying repeated satellite involvement
+[4] Correlating recent launch activity
+[5] Evaluating NOAA space weather
+[6] Comparing historical density trends
+[7] Generating operational assessment
+[8] Producing recommendations
+```
+
+Result:
+
+```text
+Assessment:
+Elevated conjunction density appears correlated with
+recent deployment activity within large satellite
+constellations.
+
+Space weather conditions remain nominal and are
+unlikely to be a significant contributing factor.
+
+Recommendation:
+Continue monitoring congestion clusters over the
+next 12–24 hours.
+```
+
+---
+
+## Built With
 
 ### Frontend
 
@@ -226,8 +221,8 @@ Operators can immediately launch investigations from detected alerts.
 
 * Coral
 * Coral SQL Runtime
-* Coral Source Federation
 * Coral MCP
+* Federated Query Engine
 
 ### Orbital Computation
 
@@ -240,159 +235,16 @@ Operators can immediately launch investigations from detected alerts.
 * OpenRouter
 * Structured Investigation Planner
 
----
-
-## Data Sources
-
-### AEGIS Core
-
-Internal orbital intelligence database.
-
-Includes:
-
-* Satellites
-* Conjunction events
-* Risk classifications
-* Relative velocity data
-
----
-
-### NOAA Space Weather
-
-Provides:
-
-* Geomagnetic activity
-* Solar storm information
-* Environmental space conditions
-
----
-
-### Launch Library
-
-Provides:
-
-* Upcoming launches
-* Mission schedules
-* Launch providers
-* Vehicle information
-
----
-
-### Space-Track
-
-Provides:
-
-* Orbital object metadata
-* Satellite catalog information
-* TLE data
-
----
-
-## Example Operational Questions
-
-ARGUS can investigate questions such as:
-
-### Operational Risk
-
-* Why are conjunction risks elevated today?
-* Which satellites repeatedly appear in high-risk events?
-* What are the highest-risk conjunctions in the next 48 hours?
-
-### Launch Intelligence
-
-* Which upcoming launches overlap with elevated conjunction pressure?
-* Are launch windows contributing to orbital congestion?
-
-### Environmental Analysis
-
-* Are current space weather conditions contributing to risk?
-* Is geomagnetic activity affecting orbital conditions?
-
-### Historical Context
-
-* Which satellites are frequent contributors to conjunction events?
-* How has conjunction density changed over time?
-
----
-
-## Sample Investigation Flow
-
-User Prompt:
-
-```text
-Why are conjunction risks elevated today?
-```
-
-Investigation Steps:
-
-```text
-[1] Querying conjunction database
-[2] Detecting orbital clustering
-[3] Identifying repeated satellite involvement
-[4] Correlating recent launch activity
-[5] Evaluating space weather conditions
-[6] Comparing historical density trends
-[7] Generating operational assessment
-[8] Producing recommendations
-```
-
-Result:
-
-```text
-Assessment:
-Elevated conjunction pressure appears correlated
-with increased Starlink deployment activity.
-
-Space weather conditions remain nominal and are
-unlikely to be a significant contributing factor.
-
-Recommendation:
-Continue monitoring congestion clusters over the
-next 12–24 hours.
-```
-
----
-
-## Coral Usage
-
-ARGUS demonstrates several core Coral capabilities:
-
-* Query Anything as SQL
-* Cross-Source Joins
-* Federated Query Execution
-* Local-First Intelligence
-* Source Discovery
-* Multi-Source Agent Workflows
-* MCP Integration
-* Operational Investigations
-
----
-
-## Future Roadmap
-
-Planned improvements include:
-
-* Collision probability estimation
-* Historical mission intelligence archives
-* Advanced anomaly detection
-* Real-time monitoring dashboards
-* Investigation replay mode
-* Automated alert escalation
-* Enhanced orbital forecasting
-* Multi-operator collaboration
-
----
 
 ## Mission
 
-ARGUS aims to make space situational awareness more accessible, explainable, and actionable by combining orbital analytics, operational intelligence, and AI-assisted investigations into a single platform.
+HELIX was built to move beyond satellite visualization and toward operational understanding.
 
-As orbital activity continues to grow, the need for intelligent monitoring systems becomes increasingly important.
+As orbital activity continues to increase, operators need systems that can investigate, correlate, and explain emerging risks across multiple data sources.
 
-ARGUS is built to help operators move beyond visualization and toward understanding.
-
----
+HELIX combines aerospace analytics, AI investigations, and Coral-powered data federation into a single operational intelligence platform.
 
 Built for the Coral Hackathon.
 Powered by Coral.
 Designed for the future of space operations.
+
