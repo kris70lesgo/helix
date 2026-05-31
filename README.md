@@ -122,45 +122,8 @@ Operators can immediately launch AI investigations directly from surfaced alerts
 ---
 
 ## Architecture
+<img width="301" height="533" alt="image" src="https://github.com/user-attachments/assets/bf38aee6-f10e-41c6-84b6-bdc605756d9d" />
 
-```text
-Space-Track
-      │
-      ▼
-NOAA Space Weather
-      │
-      ▼
-Launch Library
-      │
-      ▼
-HELIX Orbital Database
-      │
-      ▼
-┌─────────────────────────────┐
-│           Coral             │
-│ Federated SQL Query Engine  │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Multi-Step Investigation    │
-│ Engine                      │
-│                             │
-│ • Query Planning            │
-│ • Correlation               │
-│ • Assessment Generation     │
-│ • Recommendations           │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ HELIX Mission Control       │
-│ Intelligence Console        │
-│ 3D Operational Globe        │
-└─────────────────────────────┘
-```
-
----
 
 ## Example Investigation
 
