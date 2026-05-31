@@ -1,5 +1,5 @@
 """
-fetcher.py — AEGIS TLE ingestion
+fetcher.py — HELIX TLE ingestion
 Pulls from multiple CelesTrak groups in parallel using ThreadPoolExecutor.
 Each satellite is tagged with a category derived from its source group.
 Groups that fail (HTTP error, timeout, parse error) are skipped gracefully.

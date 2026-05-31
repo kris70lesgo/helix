@@ -10,7 +10,7 @@ tables:
     description: Bounded current GP records from Space-Track.
     format: jsonl
     source:
-      location: file:coral/data/space_track/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/space_track/
       glob: "gp_current.jsonl"
     columns:
       - name: norad_cat_id
@@ -59,7 +59,7 @@ tables:
     description: Bounded recent SATCAT records from Space-Track.
     format: jsonl
     source:
-      location: file:coral/data/space_track/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/space_track/
       glob: "satcat_recent.jsonl"
     columns:
       - name: norad_cat_id

@@ -1,4 +1,4 @@
-"""Structured natural-language planner for Coral-backed AEGIS intelligence."""
+"""Structured natural-language planner for Coral-backed HELIX intelligence."""
 
 from __future__ import annotations
 
@@ -37,9 +37,9 @@ def _env_value(key: str, default: str = "") -> str:
 
 
 GEMINI_API_KEY = _env_value("GEMINI_API_KEY")
-GEMINI_MODEL = _env_value("AEGIS_GEMINI_MODEL", "gemini-2.5-flash")
+GEMINI_MODEL = _env_value("HELIX_GEMINI_MODEL", "gemini-2.5-flash")
 OPENROUTER_API_KEY = _env_value("OPENROUTER_API_KEY")
-OPENROUTER_MODEL = _env_value("AEGIS_OPENROUTER_MODEL")
+OPENROUTER_MODEL = _env_value("HELIX_OPENROUTER_MODEL")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 AGENT_CACHE_TTL = 300
 
@@ -151,7 +151,7 @@ def _fallback_summary(prompt: str, query_results: list[dict[str, Any]]) -> dict[
         elif query_id == "closest_spacetrack_enrichment" and rows:
             first = rows[0]
             lines.append(
-                f"Closest enriched object is {first.get('aegis_name')} at {first.get('miss_distance_km')} km, classified by Space-Track as {first.get('object_type')} from {first.get('country_code')}."
+                f"Closest enriched object is {first.get('helix_name')} at {first.get('miss_distance_km')} km, classified by Space-Track as {first.get('object_type')} from {first.get('country_code')}."
             )
         elif query_id == "starlink_launch_context" and rows:
             lines.append(
@@ -187,7 +187,7 @@ def _summary_prompt(prompt: str, query_results: list[dict[str, Any]]) -> str:
         }
         for result in query_results
     ]
-    return f"""You are AEGIS, a space operations intelligence analyst.
+    return f"""You are HELIX, a space operations intelligence analyst.
 Use only the provided structured Coral query results. Do not invent external facts.
 Return compact JSON with keys: summary, recommendations.
 
@@ -289,8 +289,8 @@ def _openrouter_summary(prompt: str, query_results: list[dict[str, Any]]) -> dic
             headers={
                 "Authorization": f"Bearer {OPENROUTER_API_KEY}",
                 "Content-Type": "application/json",
-                "HTTP-Referer": "https://aegis.space",
-                "X-Title": "AEGIS Coral Intelligence",
+                "HTTP-Referer": "https://helix.space",
+                "X-Title": "HELIX Coral Intelligence",
             },
             json={
                 "model": OPENROUTER_MODEL,

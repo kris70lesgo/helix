@@ -1,6 +1,6 @@
-# AEGIS Coral Demo Guide
+# HELIX Coral Demo Guide
 
-AEGIS is now positioned as an AI-powered space operations intelligence
+HELIX is now positioned as an AI-powered space operations intelligence
 platform. The demo should show that Coral is the data orchestration layer, not
 a side badge.
 
@@ -8,8 +8,8 @@ a side badge.
 
 ```mermaid
 flowchart LR
-  A["AEGIS Core: SGP4, KD-tree, Risk Scoring"] --> B["SQLite: Satellites + Conjunctions"]
-  B --> C["Coral Source: aegis_core"]
+  A["HELIX Core: SGP4, KD-tree, Risk Scoring"] --> B["SQLite: Satellites + Conjunctions"]
+  B --> C["Coral Source: helix_core"]
   D["NOAA SWPC"] --> E["Coral Source: noaa_space_weather"]
   F["Launch Library 2"] --> G["Coral Source: launch_library"]
   H["Space-Track"] --> I["Coral Source: space_track"]
@@ -25,7 +25,7 @@ flowchart LR
 
 ## Three-Minute Flow
 
-1. Open the globe and show AEGIS already tracking satellites and conjunctions.
+1. Open the globe and show HELIX already tracking satellites and conjunctions.
    The key message: the original SSA core is preserved.
 
 2. Open the Intel console and run:
@@ -79,9 +79,9 @@ Show closest conjunctions with Space-Track object type and country metadata.
 ## Sponsor Feature Showcase
 
 - Multiple sources exposed as Coral tables:
-  `aegis_core`, `noaa_space_weather`, `launch_library`, `space_track`.
+  `helix_core`, `noaa_space_weather`, `launch_library`, `space_track`.
 - Cross-source joins:
-  conjunction risk plus NOAA scales, launches plus NOAA scales, AEGIS objects
+  conjunction risk plus NOAA scales, launches plus NOAA scales, HELIX objects
   plus Space-Track metadata.
 - AI workflow:
   natural language prompt to structured investigation plan, approved query
@@ -127,7 +127,7 @@ npm run dev
 Refresh Coral snapshots:
 
 ```bash
-python3 tools/export_coral_aegis_core.py
+python3 tools/export_coral_helix_core.py
 python3 tools/fetch_noaa_space_weather.py
 python3 tools/fetch_launch_library.py --limit 50
 python3 tools/fetch_spacetrack.py --limit 1000
@@ -136,7 +136,7 @@ python3 tools/fetch_spacetrack.py --limit 1000
 Validate:
 
 ```bash
-coral source test aegis_core
+coral source test helix_core
 coral source test noaa_space_weather
 coral source test launch_library
 coral source test space_track

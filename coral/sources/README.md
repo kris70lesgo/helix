@@ -4,7 +4,7 @@ Source manifests and source-specific setup notes live here.
 
 Current source:
 
-- `aegis_core.yaml`: file-backed source generated from `backend/aegis.db`.
+- `helix_core.yaml`: file-backed source generated from `backend/helix.db`.
 - `noaa_space_weather.yaml`: file-backed source generated from NOAA SWPC public JSON products.
 - `launch_library.yaml`: file-backed source generated from Launch Library 2 upcoming launches.
 - `space_track.yaml`: file-backed source generated from bounded Space-Track API snapshots.
@@ -12,9 +12,9 @@ Current source:
 Regenerate it with:
 
 ```bash
-python3 tools/export_coral_aegis_core.py
-coral source lint coral/sources/aegis_core.yaml
-coral source add --file coral/sources/aegis_core.yaml
+python3 tools/export_coral_helix_core.py
+coral source lint coral/sources/helix_core.yaml
+coral source add --file coral/sources/helix_core.yaml
 ```
 
 Regenerate NOAA with:

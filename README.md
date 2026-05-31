@@ -247,4 +247,3 @@ HELIX combines aerospace analytics, AI investigations, and Coral-powered data fe
 Built for the Coral Hackathon.
 Powered by Coral.
 Designed for the future of space operations.
-

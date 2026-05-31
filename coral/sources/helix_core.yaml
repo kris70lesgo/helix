@@ -1,0 +1,71 @@
+name: helix_core
+version: 0.1.0
+dsl_version: 3
+backend: file
+test_queries:
+  - SELECT norad_id, name, category FROM helix_core.satellites LIMIT 1
+  - SELECT sat1_norad_id, sat2_norad_id, risk FROM helix_core.conjunctions LIMIT 1
+tables:
+  - name: satellites
+    description: HELIX orbital objects exported from the local SQLite database.
+    format: jsonl
+    source:
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/helix_core/
+      glob: "satellites.jsonl"
+    columns:
+      - name: norad_id
+        type: Utf8
+        nullable: false
+        description: NORAD catalog identifier.
+      - name: name
+        type: Utf8
+        nullable: false
+        description: Satellite or debris object name.
+      - name: category
+        type: Utf8
+        description: HELIX object category such as active, stations, starlink, oneweb, planet, spire, or debris.
+      - name: tle1
+        type: Utf8
+        nullable: false
+        description: First TLE line.
+      - name: tle2
+        type: Utf8
+        nullable: false
+        description: Second TLE line.
+      - name: last_updated
+        type: Utf8
+        description: ISO timestamp from the latest local TLE ingestion.
+  - name: conjunctions
+    description: HELIX conjunction events exported from the local SQLite database.
+    format: jsonl
+    source:
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/helix_core/
+      glob: "conjunctions.jsonl"
+    columns:
+      - name: id
+        type: Int64
+        nullable: false
+        description: Local conjunction row identifier.
+      - name: sat1_norad_id
+        type: Utf8
+        nullable: false
+        description: NORAD identifier for the first object.
+      - name: sat2_norad_id
+        type: Utf8
+        nullable: false
+        description: NORAD identifier for the second object.
+      - name: tca
+        type: Utf8
+        nullable: false
+        description: ISO timestamp for time of closest approach.
+      - name: miss_distance_km
+        type: Float64
+        nullable: false
+        description: Closest approach distance in kilometers.
+      - name: relative_velocity_km_s
+        type: Float64
+        description: Relative velocity in kilometers per second.
+      - name: risk
+        type: Utf8
+        nullable: false
+        description: HELIX risk label, one of HIGH, MEDIUM, or LOW.

@@ -13,6 +13,7 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ROOT_ALIAS = Path.home() / "Documents" / "helix-coral"
 DEFAULT_DATA_DIR = ROOT / "coral" / "data" / "noaa_space_weather"
 DEFAULT_MANIFEST = ROOT / "coral" / "sources" / "noaa_space_weather.yaml"
 
@@ -25,6 +26,12 @@ PRODUCTS = {
 
 
 def source_location(data_dir: Path) -> str:
+    if ROOT_ALIAS.exists() and ROOT_ALIAS.resolve() == ROOT:
+        try:
+            relative = data_dir.resolve().relative_to(ROOT)
+            return (ROOT_ALIAS / relative).as_uri() + "/"
+        except ValueError:
+            pass
     try:
         relative = data_dir.resolve().relative_to(ROOT)
         return f"file:{relative.as_posix()}/"
@@ -33,7 +40,7 @@ def source_location(data_dir: Path) -> str:
 
 
 def fetch_json(url: str) -> Any:
-    request = urllib.request.Request(url, headers={"User-Agent": "AEGIS-Coral/0.1"})
+    request = urllib.request.Request(url, headers={"User-Agent": "HELIX-Coral/0.1"})
     with urllib.request.urlopen(request, timeout=30) as response:
         return json.load(response)
 

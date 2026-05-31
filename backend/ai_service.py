@@ -1,5 +1,5 @@
 """
-ai_service.py — Lightweight AI layer for AEGIS using OpenRouter API
+ai_service.py — Lightweight AI layer for HELIX using OpenRouter API
 
 Provides:
   - Single conjunction analysis via OpenRouter
@@ -37,7 +37,7 @@ def _env_value(key: str, default: str = "") -> str:
 
 
 OPENROUTER_API_KEY = _env_value("OPENROUTER_API_KEY")
-OPENROUTER_MODEL = _env_value("AEGIS_OPENROUTER_MODEL", "openrouter/free")
+OPENROUTER_MODEL = _env_value("HELIX_OPENROUTER_MODEL", "openrouter/free")
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 AI_CACHE_TTL = 300  # 5 minutes
@@ -142,8 +142,8 @@ def _call_ai(prompt: str) -> dict | None:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://aegis.space",
-            "X-Title": "AEGIS Satellite Monitor",
+            "HTTP-Referer": "https://helix.space",
+            "X-Title": "HELIX Satellite Monitor",
         }
         payload = {
             "model": OPENROUTER_MODEL,
@@ -151,7 +151,7 @@ def _call_ai(prompt: str) -> dict | None:
                 {
                     "role": "system",
                     "content": (
-                        "You are an AEGIS space operations analyst. "
+                        "You are a HELIX space operations analyst. "
                         "Return a compact conjunction assessment. Prefer JSON with keys: risk_summary, recommendation, explanation. "
                         "recommendation must be one of: monitor, plan maneuver, ignore."
                     ),

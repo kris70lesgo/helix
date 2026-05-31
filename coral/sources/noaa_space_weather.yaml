@@ -10,7 +10,7 @@ tables:
     description: Observed NOAA planetary K-index values from SWPC.
     format: jsonl
     source:
-      location: file:coral/data/noaa_space_weather/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/noaa_space_weather/
       glob: "kp_observed.jsonl"
     columns:
       - name: time_tag
@@ -34,7 +34,7 @@ tables:
     description: NOAA planetary K-index observed and forecast values from SWPC.
     format: jsonl
     source:
-      location: file:coral/data/noaa_space_weather/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/noaa_space_weather/
       glob: "kp_forecast.jsonl"
     columns:
       - name: time_tag
@@ -58,7 +58,7 @@ tables:
     description: Current and forecast NOAA space weather scales.
     format: jsonl
     source:
-      location: file:coral/data/noaa_space_weather/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/noaa_space_weather/
       glob: "noaa_scales.jsonl"
     columns:
       - name: period_key
@@ -99,7 +99,7 @@ tables:
     description: NOAA SWPC watches, warnings, alerts, and summaries.
     format: jsonl
     source:
-      location: file:coral/data/noaa_space_weather/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/noaa_space_weather/
       glob: "alerts.jsonl"
     columns:
       - name: product_id

@@ -1,14 +1,14 @@
-# AEGIS Coral Workspace
+# HELIX Coral Workspace
 
-This folder contains AEGIS project assets for Coral. It is intentionally
+This folder contains HELIX project assets for Coral. It is intentionally
 repo-local and should not contain API keys, tokens, account passwords, or MCP
 client secrets.
 
 ## Current Phase
 
-Phase 1 established Coral as the foundation for the AEGIS operational
+Phase 1 established Coral as the foundation for the HELIX operational
 intelligence pivot. Phase 2 exposes the existing SQLite conjunction and
-satellite data as a Coral-queryable source named `aegis_core`. Phase 3 adds
+satellite data as a Coral-queryable source named `helix_core`. Phase 3 adds
 NOAA SWPC, Launch Library 2, and Space-Track snapshots. Phases 4-6 add a
 FastAPI query layer, a structured natural-language planner, and a frontend
 intelligence console.
@@ -41,26 +41,26 @@ coral sql --format json "SELECT schema_name, table_name FROM coral.tables ORDER 
 Expected base state:
 
 - `coral source discover` lists available built-in sources.
-- `coral source list` includes `aegis_core` after Phase 2.
+- `coral source list` includes `helix_core` after Phase 2.
 - The catalog SQL query succeeds.
 
-## AEGIS Core Source
+## HELIX Core Source
 
-The current Coral build does not expose local SQLite directly, so AEGIS uses a
-file-backed Coral source generated from `backend/aegis.db`.
+The current Coral build does not expose local SQLite directly, so HELIX uses a
+file-backed Coral source generated from `backend/helix.db`.
 
 Regenerate the source snapshot and manifest:
 
 ```bash
-python3 tools/export_coral_aegis_core.py
-coral source lint coral/sources/aegis_core.yaml
-coral source add --file coral/sources/aegis_core.yaml
+python3 tools/export_coral_helix_core.py
+coral source lint coral/sources/helix_core.yaml
+coral source add --file coral/sources/helix_core.yaml
 ```
 
 The source exposes:
 
-- `aegis_core.satellites`
-- `aegis_core.conjunctions`
+- `helix_core.satellites`
+- `helix_core.conjunctions`
 
 Sample operational SQL:
 
@@ -68,7 +68,7 @@ Sample operational SQL:
 SELECT risk,
        COUNT(*) AS events,
        ROUND(MIN(miss_distance_km), 3) AS closest_km
-  FROM aegis_core.conjunctions
+  FROM helix_core.conjunctions
  GROUP BY risk
  ORDER BY events DESC;
 ```
@@ -79,9 +79,9 @@ SELECT c.risk,
        c.relative_velocity_km_s,
        s1.name AS sat1_name,
        s2.name AS sat2_name
-  FROM aegis_core.conjunctions c
-  JOIN aegis_core.satellites s1 ON c.sat1_norad_id = s1.norad_id
-  JOIN aegis_core.satellites s2 ON c.sat2_norad_id = s2.norad_id
+  FROM helix_core.conjunctions c
+  JOIN helix_core.satellites s1 ON c.sat1_norad_id = s1.norad_id
+  JOIN helix_core.satellites s2 ON c.sat2_norad_id = s2.norad_id
  ORDER BY c.miss_distance_km ASC
  LIMIT 5;
 ```
@@ -114,11 +114,11 @@ Phase 1 does not require new environment variables.
 Known variables:
 
 - `GEMINI_API_KEY`: optional AI synthesis for the Coral intelligence planner.
-- `AEGIS_GEMINI_MODEL`: optional Gemini model override. Defaults to
+- `HELIX_GEMINI_MODEL`: optional Gemini model override. Defaults to
   `gemini-2.5-flash`.
 - `OPENROUTER_API_KEY`: optional legacy conjunction analysis and optional
-  fallback synthesis when `AEGIS_OPENROUTER_MODEL` is also set.
-- `AEGIS_OPENROUTER_MODEL`: OpenRouter model ID for fallback synthesis.
+  fallback synthesis when `HELIX_OPENROUTER_MODEL` is also set.
+- `HELIX_OPENROUTER_MODEL`: OpenRouter model ID for fallback synthesis.
 - `SPACE_TRACK_USERNAME`: Space-Track source account username.
 - `SPACE_TRACK_PASSWORD`: Space-Track source account password.
 - `NEXT_PUBLIC_API_BASE_URL`: optional frontend backend URL override.
@@ -196,7 +196,7 @@ Increase `--limit` only for a specific demo or benchmark need.
 
 ## Backend Query API
 
-AEGIS exposes reusable Coral-backed intelligence queries through FastAPI:
+HELIX exposes reusable Coral-backed intelligence queries through FastAPI:
 
 ```bash
 curl http://127.0.0.1:8000/intelligence/queries
@@ -234,9 +234,9 @@ Run after Coral setup changes:
 ```bash
 coral --version
 coral source discover
-python3 tools/export_coral_aegis_core.py
-coral source lint coral/sources/aegis_core.yaml
-coral source add --file coral/sources/aegis_core.yaml
+python3 tools/export_coral_helix_core.py
+coral source lint coral/sources/helix_core.yaml
+coral source add --file coral/sources/helix_core.yaml
 python3 tools/fetch_noaa_space_weather.py
 coral source lint coral/sources/noaa_space_weather.yaml
 coral source add --file coral/sources/noaa_space_weather.yaml
@@ -263,7 +263,7 @@ rm -rf coral
 Remove the configured source:
 
 ```bash
-coral source remove aegis_core
+coral source remove helix_core
 coral source remove noaa_space_weather
 coral source remove launch_library
 coral source remove space_track

@@ -657,7 +657,7 @@ export default function Home() {
               />
             </svg>
             <span className="font-bold tracking-[0.2em] text-cyan-400 text-sm">
-              AEGIS
+              HELIX
             </span>
             <span className="w-px h-4 bg-white/10" />
             <span className="text-[10px] tracking-widest text-zinc-500 uppercase hidden sm:block">

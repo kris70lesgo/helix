@@ -1,4 +1,4 @@
-"""Deterministic multi-step investigation engine for Coral-backed AEGIS ops."""
+"""Deterministic multi-step investigation engine for Coral-backed HELIX ops."""
 
 from __future__ import annotations
 
@@ -18,14 +18,14 @@ MAX_STEPS = 8
 
 
 QUERY_SOURCES: dict[str, list[str]] = {
-    "risk_weather_context": ["aegis_core", "noaa_space_weather"],
-    "closest_spacetrack_enrichment": ["aegis_core", "space_track"],
-    "starlink_launch_context": ["aegis_core", "launch_library"],
+    "risk_weather_context": ["helix_core", "noaa_space_weather"],
+    "closest_spacetrack_enrichment": ["helix_core", "space_track"],
+    "starlink_launch_context": ["helix_core", "launch_library"],
     "launch_weather_window": ["launch_library", "noaa_space_weather"],
-    "repeated_satellite_involvement": ["aegis_core"],
-    "risk_density_by_day": ["aegis_core"],
-    "high_risk_category_distribution": ["aegis_core"],
-    "closest_high_risk_events": ["aegis_core"],
+    "repeated_satellite_involvement": ["helix_core"],
+    "risk_density_by_day": ["helix_core"],
+    "high_risk_category_distribution": ["helix_core"],
+    "closest_high_risk_events": ["helix_core"],
 }
 
 
@@ -119,7 +119,7 @@ def plan_investigation(prompt: str) -> tuple[str, list[PlannedStep]]:
         PlannedStep(
             "gathering_conjunctions",
             "Querying current conjunction risk distribution",
-            "Establish the operational risk baseline from AEGIS conjunction data.",
+            "Establish the operational risk baseline from HELIX conjunction data.",
             "risk_weather_context",
         ),
         PlannedStep(
@@ -191,9 +191,9 @@ def evaluate_alerts() -> dict[str, Any]:
             high_count = int(high.get("conjunctions") or 0)
             closest = float(high.get("closest_km") or 999999)
             if high_count >= 50:
-                alerts.append(_alert("high", "High-risk conjunction density elevated", f"{high_count} high-risk conjunctions are currently stored.", ["aegis_core"], "Why are conjunction risks elevated today?"))
+                alerts.append(_alert("high", "High-risk conjunction density elevated", f"{high_count} high-risk conjunctions are currently stored.", ["helix_core"], "Why are conjunction risks elevated today?"))
             if closest < 1:
-                alerts.append(_alert("critical", "Sub-1 km miss distance detected", f"Closest high-risk miss distance is {closest:.3f} km.", ["aegis_core"], "Investigate the closest high-risk conjunctions and recurring satellites."))
+                alerts.append(_alert("critical", "Sub-1 km miss distance detected", f"Closest high-risk miss distance is {closest:.3f} km.", ["helix_core"], "Investigate the closest high-risk conjunctions and recurring satellites."))
             storm = float(high.get("geomagnetic_storm_scale") or 0)
             if storm >= 3:
                 alerts.append(_alert("high", "NOAA geomagnetic storm elevated", f"Current NOAA geomagnetic scale is {storm}.", ["noaa_space_weather"], "Assess conjunction risk under current NOAA space weather."))
@@ -373,7 +373,7 @@ def _finding_for_result(result: dict[str, Any]) -> str:
         return f"{len(rows)} upcoming launches checked against current NOAA space-weather scale context."
     if query_id == "closest_spacetrack_enrichment":
         first = rows[0]
-        return f"Closest enriched object is {first.get('aegis_name')} classified as {first.get('object_type')} from {first.get('country_code')}."
+        return f"Closest enriched object is {first.get('helix_name')} classified as {first.get('object_type')} from {first.get('country_code')}."
     if query_id == "high_risk_category_distribution":
         first = rows[0]
         return f"Category {first.get('category')} dominates high-risk events with {first.get('high_risk_events')} entries."

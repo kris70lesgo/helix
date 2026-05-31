@@ -13,12 +13,19 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ROOT_ALIAS = Path.home() / "Documents" / "helix-coral"
 DEFAULT_DATA_DIR = ROOT / "coral" / "data" / "launch_library"
 DEFAULT_MANIFEST = ROOT / "coral" / "sources" / "launch_library.yaml"
 BASE_URL = "https://ll.thespacedevs.com/2.3.0/launches/upcoming/"
 
 
 def source_location(data_dir: Path) -> str:
+    if ROOT_ALIAS.exists() and ROOT_ALIAS.resolve() == ROOT:
+        try:
+            relative = data_dir.resolve().relative_to(ROOT)
+            return (ROOT_ALIAS / relative).as_uri() + "/"
+        except ValueError:
+            pass
     try:
         relative = data_dir.resolve().relative_to(ROOT)
         return f"file:{relative.as_posix()}/"
@@ -39,7 +46,7 @@ def fetch_upcoming(limit: int) -> dict[str, Any]:
     query = urllib.parse.urlencode({"limit": limit})
     request = urllib.request.Request(
         f"{BASE_URL}?{query}",
-        headers={"User-Agent": "AEGIS-Coral/0.1"},
+        headers={"User-Agent": "HELIX-Coral/0.1"},
     )
     with urllib.request.urlopen(request, timeout=30) as response:
         return json.load(response)

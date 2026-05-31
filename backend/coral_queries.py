@@ -1,4 +1,4 @@
-"""Predefined Coral operational intelligence queries for AEGIS."""
+"""Predefined Coral operational intelligence queries for HELIX."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ class CoralQuery:
 QUERIES: dict[str, CoralQuery] = {
     "risk_weather_context": CoralQuery(
         title="Risk distribution with current NOAA space weather",
-        description="Summarizes local AEGIS conjunction risk under the current NOAA scale context.",
+        description="Summarizes local HELIX conjunction risk under the current NOAA scale context.",
         sql="""
 SELECT c.risk,
        COUNT(*) AS conjunctions,
@@ -24,7 +24,7 @@ SELECT c.risk,
        n.geomagnetic_storm_scale,
        n.geomagnetic_storm_text,
        n.solar_radiation_scale
-  FROM aegis_core.conjunctions c
+  FROM helix_core.conjunctions c
  CROSS JOIN (
        SELECT date_stamp,
               geomagnetic_storm_scale,
@@ -44,17 +44,17 @@ SELECT c.risk,
     ),
     "closest_spacetrack_enrichment": CoralQuery(
         title="Closest conjunctions enriched with Space-Track metadata",
-        description="Joins AEGIS risk events to current Space-Track GP metadata for object type and country.",
+        description="Joins HELIX risk events to current Space-Track GP metadata for object type and country.",
         sql="""
 SELECT c.risk,
        c.miss_distance_km,
        c.relative_velocity_km_s,
-       s.name AS aegis_name,
+       s.name AS helix_name,
        gp.object_type,
        gp.country_code,
        gp.epoch
-  FROM aegis_core.conjunctions c
-  JOIN aegis_core.satellites s ON c.sat1_norad_id = s.norad_id
+  FROM helix_core.conjunctions c
+  JOIN helix_core.satellites s ON c.sat1_norad_id = s.norad_id
   JOIN space_track.gp_current gp ON c.sat1_norad_id = gp.norad_cat_id
  ORDER BY c.miss_distance_km ASC
  LIMIT 20
@@ -72,8 +72,8 @@ SELECT l.net,
   FROM launch_library.upcoming_launches l
  CROSS JOIN (
        SELECT COUNT(DISTINCT c.id) AS starlink_conjunction_events
-         FROM aegis_core.satellites s
-         JOIN aegis_core.conjunctions c
+         FROM helix_core.satellites s
+         JOIN helix_core.conjunctions c
            ON c.sat1_norad_id = s.norad_id OR c.sat2_norad_id = s.norad_id
         WHERE lower(s.name) LIKE '%starlink%'
       ) sc
@@ -113,10 +113,10 @@ SELECT l.net,
         sql="""
 WITH participants AS (
        SELECT sat1_norad_id AS norad_id, risk, miss_distance_km
-         FROM aegis_core.conjunctions
+         FROM helix_core.conjunctions
         UNION ALL
        SELECT sat2_norad_id AS norad_id, risk, miss_distance_km
-         FROM aegis_core.conjunctions
+         FROM helix_core.conjunctions
 )
 SELECT p.norad_id,
        s.name,
@@ -125,7 +125,7 @@ SELECT p.norad_id,
        SUM(CASE WHEN p.risk = 'HIGH' THEN 1 ELSE 0 END) AS high_risk_events,
        ROUND(MIN(p.miss_distance_km), 3) AS closest_km
   FROM participants p
-  JOIN aegis_core.satellites s ON p.norad_id = s.norad_id
+  JOIN helix_core.satellites s ON p.norad_id = s.norad_id
  GROUP BY p.norad_id, s.name, s.category
  ORDER BY high_risk_events DESC, conjunction_events DESC
  LIMIT 20
@@ -139,7 +139,7 @@ SELECT substr(tca, 1, 10) AS event_date,
        COUNT(*) AS conjunction_events,
        SUM(CASE WHEN risk = 'HIGH' THEN 1 ELSE 0 END) AS high_risk_events,
        ROUND(MIN(miss_distance_km), 3) AS closest_km
-  FROM aegis_core.conjunctions
+  FROM helix_core.conjunctions
  GROUP BY substr(tca, 1, 10)
  ORDER BY event_date DESC
  LIMIT 14
@@ -152,8 +152,8 @@ SELECT substr(tca, 1, 10) AS event_date,
 SELECT s.category,
        COUNT(DISTINCT c.id) AS high_risk_events,
        ROUND(MIN(c.miss_distance_km), 3) AS closest_km
-  FROM aegis_core.conjunctions c
-  JOIN aegis_core.satellites s
+  FROM helix_core.conjunctions c
+  JOIN helix_core.satellites s
     ON c.sat1_norad_id = s.norad_id OR c.sat2_norad_id = s.norad_id
  WHERE c.risk = 'HIGH'
  GROUP BY s.category
@@ -172,9 +172,9 @@ SELECT c.tca,
        s1.name AS sat1_name,
        c.sat2_norad_id,
        s2.name AS sat2_name
-  FROM aegis_core.conjunctions c
-  JOIN aegis_core.satellites s1 ON c.sat1_norad_id = s1.norad_id
-  JOIN aegis_core.satellites s2 ON c.sat2_norad_id = s2.norad_id
+  FROM helix_core.conjunctions c
+  JOIN helix_core.satellites s1 ON c.sat1_norad_id = s1.norad_id
+  JOIN helix_core.satellites s2 ON c.sat2_norad_id = s2.norad_id
  WHERE c.risk = 'HIGH'
  ORDER BY c.miss_distance_km ASC
  LIMIT 20

@@ -10,7 +10,7 @@ tables:
     description: Upcoming launches from The Space Devs Launch Library 2 API.
     format: jsonl
     source:
-      location: file:coral/data/launch_library/
+      location: file:///Users/agastya/Documents/helix-coral/coral/data/launch_library/
       glob: "upcoming_launches.jsonl"
     columns:
       - name: launch_id

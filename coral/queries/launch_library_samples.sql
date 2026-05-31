@@ -29,8 +29,8 @@ SELECT l.net,
   FROM launch_library.upcoming_launches l
  CROSS JOIN (
        SELECT COUNT(DISTINCT c.id) AS starlink_conjunction_events
-         FROM aegis_core.satellites s
-         JOIN aegis_core.conjunctions c
+         FROM helix_core.satellites s
+         JOIN helix_core.conjunctions c
            ON c.sat1_norad_id = s.norad_id OR c.sat2_norad_id = s.norad_id
         WHERE lower(s.name) LIKE '%starlink%'
       ) sc

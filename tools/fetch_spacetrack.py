@@ -15,6 +15,7 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
+ROOT_ALIAS = Path.home() / "Documents" / "helix-coral"
 DEFAULT_DATA_DIR = ROOT / "coral" / "data" / "space_track"
 DEFAULT_MANIFEST = ROOT / "coral" / "sources" / "space_track.yaml"
 LOGIN_URL = "https://www.space-track.org/ajaxauth/login"
@@ -22,6 +23,12 @@ QUERY_BASE = "https://www.space-track.org/basicspacedata/query"
 
 
 def source_location(data_dir: Path) -> str:
+    if ROOT_ALIAS.exists() and ROOT_ALIAS.resolve() == ROOT:
+        try:
+            relative = data_dir.resolve().relative_to(ROOT)
+            return (ROOT_ALIAS / relative).as_uri() + "/"
+        except ValueError:
+            pass
     try:
         relative = data_dir.resolve().relative_to(ROOT)
         return f"file:{relative.as_posix()}/"
@@ -59,7 +66,7 @@ def login(username: str, password: str) -> urllib.request.OpenerDirector:
     request = urllib.request.Request(
         LOGIN_URL,
         data=payload,
-        headers={"User-Agent": "AEGIS-Coral/0.1"},
+        headers={"User-Agent": "HELIX-Coral/0.1"},
     )
     with opener.open(request, timeout=30) as response:
         if response.status != 200:
@@ -72,7 +79,7 @@ def query_json(opener: urllib.request.OpenerDirector, path: str) -> list[dict[st
     encoded_path = urllib.parse.quote(path, safe="/")
     request = urllib.request.Request(
         f"{QUERY_BASE}/{encoded_path}/format/json",
-        headers={"User-Agent": "AEGIS-Coral/0.1"},
+        headers={"User-Agent": "HELIX-Coral/0.1"},
     )
     with opener.open(request, timeout=60) as response:
         return json.load(response)

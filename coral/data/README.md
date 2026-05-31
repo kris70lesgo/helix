@@ -2,10 +2,10 @@
 
 Generated JSONL snapshots for local Coral file-backed sources live here.
 
-Regenerate the internal AEGIS source with:
+Regenerate the internal HELIX source with:
 
 ```bash
-python3 tools/export_coral_aegis_core.py
+python3 tools/export_coral_helix_core.py
 ```
 
 Regenerate the NOAA space weather source with:
@@ -26,4 +26,4 @@ Regenerate the Space-Track source with:
 python3 tools/fetch_spacetrack.py --limit 1000
 ```
 
-The SQLite source of truth remains `backend/aegis.db`.
+The SQLite source of truth remains `backend/helix.db`.

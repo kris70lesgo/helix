@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AEGIS — Satellite Conjunction Monitor",
+  title: "HELIX — Satellite Conjunction Monitor",
   description:
-    "Real-time satellite tracking, orbit propagation, and conjunction detection powered by AEGIS.",
+    "Real-time satellite tracking, orbit propagation, and conjunction detection powered by HELIX.",
 };
 
 export default function RootLayout({

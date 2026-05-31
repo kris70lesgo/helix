@@ -1,5 +1,5 @@
 """
-main.py — AEGIS FastAPI backend (Phase 8: proximity pairs for globe arc viz)
+main.py — HELIX FastAPI backend (Phase 8: proximity pairs for globe arc viz)
 
 New in Phase 8:
   - GET /proximity returns the N closest satellite pairs right now
@@ -42,7 +42,7 @@ from investigation_engine import (
 
 # ── App ───────────────────────────────────────────────────────────────────────
 
-app = FastAPI(title="AEGIS Backend", version="2.0.0")
+app = FastAPI(title="HELIX Backend", version="2.0.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -117,7 +117,7 @@ def on_startup() -> None:
 
 @app.get("/")
 def root():
-    return {"message": "AEGIS backend running", "version": "2.0.0"}
+    return {"message": "HELIX backend running", "version": "2.0.0"}
 
 
 # ── Status ────────────────────────────────────────────────────────────────────

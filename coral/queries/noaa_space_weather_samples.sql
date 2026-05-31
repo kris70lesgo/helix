@@ -27,13 +27,13 @@ SELECT issue_datetime,
  LIMIT 10;
 
 -- Date-overlap cross-source correlation:
--- high-risk AEGIS conjunctions on days with NOAA Kp observations.
+-- high-risk HELIX conjunctions on days with NOAA Kp observations.
 -- This returns rows only when the local conjunction snapshot overlaps the
 -- live NOAA observation window.
 SELECT substr(c.tca, 1, 10) AS event_date,
        COUNT(*) AS high_risk_conjunctions,
        ROUND(MAX(k.kp), 2) AS max_observed_kp
-  FROM aegis_core.conjunctions c
+  FROM helix_core.conjunctions c
   JOIN noaa_space_weather.kp_observed k
     ON substr(c.tca, 1, 10) = substr(k.time_tag, 1, 10)
  WHERE c.risk = 'HIGH'
@@ -41,14 +41,14 @@ SELECT substr(c.tca, 1, 10) AS event_date,
  ORDER BY event_date DESC;
 
 -- Demo-safe current operational context:
--- current NOAA scale context attached to local AEGIS risk distribution.
+-- current NOAA scale context attached to local HELIX risk distribution.
 SELECT c.risk,
        COUNT(*) AS conjunctions,
        n.date_stamp,
        n.geomagnetic_storm_scale,
        n.geomagnetic_storm_text,
        n.solar_radiation_scale
-  FROM aegis_core.conjunctions c
+  FROM helix_core.conjunctions c
  CROSS JOIN (
        SELECT date_stamp,
               geomagnetic_storm_scale,
